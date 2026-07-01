@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---- Palette ----
+     Night-drive dark base, not pure black — a charcoal-blue that reads as
+     dusk rather than "generic dark mode". Ember amber is the signature
+     accent: dashboard-glow warm, distinct from the acid-green/vermilion
+     that AI-generated dark UIs default to.
+  */
+  --color-base: #0b0e14;
+  --color-base-raised: #10141d;
+  --color-surface: rgba(255, 255, 255, 0.045);
+  --color-surface-hover: rgba(255, 255, 255, 0.07);
+  --color-border: rgba(255, 255, 255, 0.08);
+
+  --color-ember: #ff9f45;
+  --color-ember-soft: #ffb87a;
+  --color-ember-dim: rgba(255, 159, 69, 0.14);
+
+  --color-ink: #edeff3;
+  --color-ink-muted: #9ba3b4;
+  --color-ink-faint: #5c6577;
+
+  --color-success: #6fcf97;
+  --color-danger: #ff5a5f;
+
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background:
+    radial-gradient(ellipse 80% 60% at 15% -10%, rgba(255, 159, 69, 0.08), transparent),
+    radial-gradient(ellipse 60% 50% at 100% 10%, rgba(78, 205, 196, 0.05), transparent),
+    var(--color-base);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  min-height: 100vh;
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+::selection {
+  background: var(--color-ember-dim);
+  color: var(--color-ember-soft);
+}
+
+/* Visible keyboard focus everywhere — accessibility floor from the design brief */
+:focus-visible {
+  outline: 2px solid var(--color-ember);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Reusable glass panel — the structural device used throughout the app */
+.glass-panel {
+  background: var(--color-surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-border);
+}
