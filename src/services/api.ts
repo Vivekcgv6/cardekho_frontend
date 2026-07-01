@@ -7,7 +7,7 @@ import type {
   ChatMessage,
 } from "@/types";
 
-const baseURL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const baseURL = import.meta.env.VITE_API_URL || "https://cardekho-backend-0yot.onrender.com";
 
 export const api = axios.create({
   baseURL,
