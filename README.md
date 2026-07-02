@@ -1,32 +1,35 @@
-# React + TypeScript + Vite
+# MrWiseDrive — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+*"We recommend cars, not regrets."*
 
-Currently, two official plugins are available:
+The React app for MrWiseDrive — the questionnaire, the driving personality reveal, the car recommendations, all of it. Talks to the FastAPI backend for everything, doesn't do any of the actual scoring itself.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Heads up if you're testing the deployed version
 
-## React Compiler
+The backend runs on Render's free tier and goes to sleep after 15 minutes of no traffic. If you land on the site and the questionnaire seems stuck loading your results, that's why — give it about 50 seconds and try again. First request wakes the server up, second one works fine.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Running it locally
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+cd frontend
+npm install
+cp .env.example .env
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Opens at `http://localhost:5173`. Make sure the backend's running too (see the backend README) — by default this points at `http://localhost:8000`, change `VITE_API_URL` in `.env` if yours is somewhere else.
+
+## What's actually here
+
+- **Landing** → **Questionnaire** → **Personality reveal** → **Recommendations** → **Compare** → **Summary** → **Goodbye**, all wired up with React Router
+- One context (`JourneyContext`) holding the questionnaire answers and results, synced to localStorage so nobody loses their progress on a refresh
+- A canvas-rendered, downloadable "driving personality" badge — no image library, just the Canvas API
+- Everything's typed against the backend's Pydantic schemas, so if the API shape changes, TypeScript tells you before the browser does
+
+## Stack
+
+React, TypeScript, Vite, Tailwind, React Router, Framer Motion, Axios. Nothing exotic — the interesting decisions in this project are on the backend (deterministic ranking vs. AI), this side is mostly about making that feel good to actually use.
+
+## If I had more time
+
+A dedicated car detail page, real loading skeletons instead of a spinner, and a proper empty/error state if the backend is unreachable instead of just hanging.
